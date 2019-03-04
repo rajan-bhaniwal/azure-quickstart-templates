@@ -5,7 +5,7 @@
     "namePrefix": {
       "type": "string",
       "minLength": 3,
-      "maxLength": 8,
+      "maxLength": 14,
       "metadata": {
         "description": "Naming prefix for each new resource created. 3-char min, 8-char max, lowercase alphanumeric"
       }
@@ -121,12 +121,12 @@
   },
   "variables": {
     "apiVersionStorage": "2016-01-01",
-    "storageNamePrefix": "[concat(parameters('namePrefix'),uniqueString(resourceGroup().id),'vm')]",
-    "witnessStorageName": "[concat(parameters('namePrefix'),uniqueString(resourceGroup().id),'cw')]",
+    "storageNamePrefix": "[toLower(concat(replace(parameters('namePrefix'),'-',''),uniqueString(resourceGroup().id)))]",
+    "witnessStorageName": "[toLower(concat(replace(parameters('namePrefix'),'-',''),uniqueString(resourceGroup().id),'cw'))]",
     "witnessStorageType": "Standard_LRS",
-    "vmNamePrefix": "[concat(parameters('namePrefix'),'-s2d-')]",
-    "vmAvailabilitySetName": "[concat(variables('vmNamePrefix'),'as')]",
-    "clusterName": "[concat(variables('vmNamePrefix'),'c')]",
+    "vmNamePrefix": "[concat(parameters('namePrefix'))]",
+    "vmAvailabilitySetName": "[concat(variables('vmNamePrefix'),'-AS')]",
+    "clusterName": "[concat(variables('vmNamePrefix'),'-S2D-C')]",
     "vmLoopTemplateURL": "[concat(parameters('_artifactsLocation'),'/nestedtemplates/newVM.json',parameters('_artifactsLocationSasToken'))]",
     "s2dPrepModulesURL": "[concat(parameters('_artifactsLocation'),'/dsc/prep-s2d.ps1.zip',parameters('_artifactsLocationSasToken'))]",
     "s2dPrepFunction": "PrepS2D.ps1\\PrepS2D",
